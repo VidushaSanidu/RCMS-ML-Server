@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  ml-server:
+    build: .
+    container_name: renal-ml-server
+    ports:
+      - "8001:8001"
+    environment:
+      DEBUG: "True"
+      DJANGO_SECRET_KEY: "your-django-secret-key-here"
+      JWT_SECRET: "your-super-secret-jwt-key-here-change-in-production"
+      JWT_EXPIRE: "30d"
+      DATABASE_PATH: "/app/data/db.sqlite3"
+      ALLOWED_HOSTS: "*"
+      LOG_LEVEL: "INFO"
+    volumes:
+      - renal_ml_data:/app/data
+      - ./models:/app/models   # persist ML models if needed
+    restart: unless-stopped
+    command: >
+      sh -c "
+      python manage.py migrate &&
+      python manage.py runserver 0.0.0.0:8001
+      "
+
+volumes:
+  renal_ml_data:
