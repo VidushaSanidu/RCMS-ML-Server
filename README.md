@@ -96,7 +96,7 @@ start_server.bat
 Run the API tests:
 
 ```bash
-python test_api.py
+python test_dry_weight_features.py
 ```
 
 ## Usage
