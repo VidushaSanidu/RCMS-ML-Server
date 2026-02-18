@@ -1,1 +1,3 @@
-# Empty __init__.py file to make this directory a Python package
+import pymysql
+
+pymysql.install_as_MySQLdb()
