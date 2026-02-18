@@ -1,13 +1,13 @@
-# ML Server for Renal Care Management System
+# Renal Care Management System - ML Server
 
-A Django-based ML server providing machine learning model predictions for renal care management.
+This is the ML server for the Renal Care Management System. It is built using Django and provides REST API endpoints for making predictions using the trained machine learning models. The ML server is designed to work alongside the Express.js backend and serves predictions to the frontend applications.
 
 ## Features
 
 - **JWT Authentication**: Secure endpoints using the same JWT tokens as Express.js backend
 - **Role-based Access**: Restrict prediction endpoints to doctors and nurses only
 - **Dry Weight Change Prediction**: Predicts if dry weight will change in next dialysis session
-- **URR Risk Prediction**: Predicts if URR will go to risk region (inadequate) next month  
+- **URR Risk Prediction**: Predicts if URR will go to risk region (inadequate) next month
 - **Hemoglobin Risk Prediction**: Predicts if Hb will go to risk region next month with clinical recommendations
 
 ## API Endpoints
@@ -30,7 +30,7 @@ POST /api/ml/predict/hb/ - Predict hemoglobin risk
 
 ## Authentication
 
-The ML server uses JWT authentication compatible with the Express.js backend.
+The ML server uses JWT authentication. You must include a valid JWT token in the `Authorization` header of your requests to access the protected endpoints.
 
 ### Protected Endpoints
 
@@ -94,7 +94,7 @@ start_server.bat
 
 ## Testing
 
-Run the API tests:
+Run the test scripts to validate the models and API endpoints:
 
 ```bash
 python test_dry_weight_features.py
@@ -102,7 +102,9 @@ python test_dry_weight_features.py
 
 ## Usage
 
-The server runs on port 8001 and provides REST API endpoints for ML predictions.
+- The server runs on port 8001 and provides REST API endpoints for ML predictions.
+
+- You can make requests to these endpoints from the Express.js backend or curl/ Postman for testing.
 
 ### Example API Calls
 
@@ -224,7 +226,7 @@ ML_Server/
 │   ├── services.py         # ML prediction services
 │   ├── urls.py             # App URL patterns
 │   └── trained_models/     # Directory for trained model files
-│       ├── README.md
+│       ├── README.md       # Details about the models
 │       ├── dry_weight_model.pkl     # Trained model for dry weight prediction
 │       ├── urr_model.pkl            # Trained model for URR prediction
 │       ├── hb_model.pkl             # Trained model for hemoglobin prediction
