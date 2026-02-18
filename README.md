@@ -44,8 +44,9 @@ POST /api/ml/predict/hb/ - Requires DOCTOR or NURSE role
 
 ### Public Endpoints
 
-```http
 These endpoints don't require authentication:
+
+```http
 GET /health/ - Server health check
 GET /api/ml/health/ - ML models health check
 GET /api/ml/models/ - Information about available models

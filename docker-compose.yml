@@ -11,7 +11,7 @@ services:
       SECRET_KEY: "your-django-secret-key-here"
       JWT_SECRET: "your-super-secret-jwt-key-here-change-in-production"
       LOG_LEVEL: "INFO"
-      CORS_ALLOWED_ORIGINS: "http://localhost:5000,http://127.0.0.1:5000,HTTP://0.0.0.0:5000"
+      CORS_ALLOWED_ORIGINS: "http://localhost:5000,http://127.0.0.1:5000,http://0.0.0.0:5000"
       ALLOWED_HOSTS: "localhost,127.0.0.1,0.0.0.0"
       DATABASE_PATH: "/app/data/db.sqlite3"
     volumes:

@@ -25,7 +25,7 @@ ENV DEBUG=False
 ENV SECRET_KEY=your-django-secret-key-here
 ENV JWT_SECRET=your-super-secret-jwt-key-here-change-in-production
 ENV LOG_LEVEL=INFO
-ENV CORS_ALLOWED_ORIGINS=http://localhost:5000,http://127.0.0.1:5000,HTTP://0.0.0.0:5000
+ENV CORS_ALLOWED_ORIGINS=http://localhost:5000,http://127.0.0.1:5000,http://0.0.0.0:5000
 ENV ALLOWED_HOSTS=localhost,127.0.0.1,0.0.0.0
 ENV DATABASE_PATH=/app/data/db.sqlite3
 
