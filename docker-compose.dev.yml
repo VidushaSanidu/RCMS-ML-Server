@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  ml-server:
+    build: .
+    container_name: renal-ml-server
+    ports:
+      - "8001:8001"
+
+    env_file:
+      - .env
+
+    volumes:
+      - renal_ml_data:/app/data
+
+    restart: unless-stopped
+
+    command: >
+      sh -c "
+      python manage.py migrate &&
+      python manage.py runserver 0.0.0.0:8001
+      "
+
+volumes:
+  renal_ml_data:
