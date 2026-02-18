@@ -1,4 +1,4 @@
-# ML Server for Renal Care Management
+# ML Server for Renal Care Management System
 
 A Django-based ML server providing machine learning model predictions for renal care management.
 
@@ -13,14 +13,16 @@ A Django-based ML server providing machine learning model predictions for renal 
 ## API Endpoints
 
 ### Health Check
-```
+
+```http
 GET /health/ - Server health check
 GET /api/ml/health/ - ML models health check
 GET /api/ml/models/ - Information about available models
 ```
 
 ### Predictions
-```
+
+```http
 POST /api/ml/predict/dry-weight/ - Predict dry weight change
 POST /api/ml/predict/urr/ - Predict URR risk
 POST /api/ml/predict/hb/ - Predict hemoglobin risk
@@ -31,26 +33,36 @@ POST /api/ml/predict/hb/ - Predict hemoglobin risk
 The ML server uses JWT authentication compatible with the Express.js backend.
 
 ### Protected Endpoints
+
 All prediction endpoints require authentication:
-- `POST /api/ml/predict/dry-weight/` - Requires DOCTOR or NURSE role
-- `POST /api/ml/predict/urr/` - Requires DOCTOR or NURSE role  
-- `POST /api/ml/predict/hb/` - Requires DOCTOR or NURSE role
+
+```http
+POST /api/ml/predict/dry-weight/ - Requires DOCTOR or NURSE role
+POST /api/ml/predict/urr/ - Requires DOCTOR or NURSE role  
+POST /api/ml/predict/hb/ - Requires DOCTOR or NURSE role
+```
 
 ### Public Endpoints
+
+```http
 These endpoints don't require authentication:
-- `GET /health/` - Server health check
-- `GET /api/ml/health/` - ML models health check
-- `GET /api/ml/models/` - Information about available models
+GET /health/ - Server health check
+GET /api/ml/health/ - ML models health check
+GET /api/ml/models/ - Information about available models
+```
 
 ### Authorization Header
+
 Include JWT token in requests:
-```
+
+```http
 Authorization: Bearer <your-jwt-token>
 ```
 
 ## Quick Start
 
 ### Option 1: Use the startup script (Windows)
+
 ```cmd
 # For Command Prompt
 start_server.bat
@@ -60,24 +72,29 @@ start_server.bat
 ```
 
 ### Option 2: Manual setup
+
 1. Install Python dependencies:
-```bash
-pip install -r requirements.txt
-```
+
+    ```bash
+    pip install -r requirements.txt
+    ```
 
 2. Run migrations:
-```bash
-python manage.py migrate
-```
+
+    ```bash
+    python manage.py migrate
+    ```
 
 3. Start the server:
-```bash
-python manage.py runserver 8001
-```
+
+    ```bash
+      python manage.py runserver 8001
+    ```
 
 ## Testing
 
 Run the API tests:
+
 ```bash
 python test_api.py
 ```
@@ -89,6 +106,7 @@ The server runs on port 8001 and provides REST API endpoints for ML predictions.
 ### Example API Calls
 
 #### Dry Weight Prediction
+
 ```bash
 curl -X POST http://localhost:8001/api/ml/predict/dry-weight/ \
   -H "Content-Type: application/json" \
@@ -109,6 +127,7 @@ curl -X POST http://localhost:8001/api/ml/predict/dry-weight/ \
 ```
 
 #### URR Prediction
+
 ```bash
 curl -X POST http://localhost:8001/api/ml/predict/urr/ \
   -H "Content-Type: application/json" \
@@ -126,6 +145,7 @@ curl -X POST http://localhost:8001/api/ml/predict/urr/ \
 ```
 
 #### Hemoglobin Prediction
+
 ```bash
 curl -X POST http://localhost:8001/api/ml/predict/hb/ \
   -H "Content-Type: application/json" \
@@ -149,23 +169,23 @@ curl -X POST http://localhost:8001/api/ml/predict/hb/ \
 
 ## Model Files
 
-Place trained model files in `ml_models/models/` directory:
-- `dry_weight_model.pkl`
-- `urr_model.pkl` 
-- `hb_model.pkl`
+`ml_models/models/` directory:
 
-If model files are not found, dummy models will be used for development.
+- dry_weight_model.pkl
+- urr_model.pkl
+- hb_model.pkl
 
 ## Integration with Express.js Backend
 
 The ML server is designed to work alongside the Express.js backend:
+
 - Express.js backend runs on port 3000
 - ML server runs on port 8001
 - CORS is configured to allow requests from the Express.js server
 
 ## Architecture
 
-```
+```text
 Frontend (React) → Express.js Backend (port 3000) → ML Server (port 8001)
                         ↓
                   MongoDB Database
@@ -173,7 +193,7 @@ Frontend (React) → Express.js Backend (port 3000) → ML Server (port 8001)
 
 ## Project Structure
 
-```
+```text
 ML_Server/
 ├── ml_server/              # Django project
 │   ├── __init__.py
@@ -190,14 +210,13 @@ ML_Server/
 │   ├── urls.py             # App URL patterns
 │   └── models/             # ML model files directory
 │       ├── README.md
-│       ├── dry_weight_model.pkl    # (to be added)
-│       ├── urr_model.pkl          # (to be added)
-│       └── hb_model.pkl           # (to be added)
+│       ├── dry_weight_model.pkl    # Trained model for dry weight prediction
+│       ├── urr_model.pkl          # Trained model for URR prediction
+│       └── hb_model.pkl           # Trained model for hemoglobin prediction
 ├── requirements.txt        # Python dependencies
 ├── manage.py              # Django management script
 ├── start_server.bat       # Windows batch startup script
 ├── start_server.ps1       # PowerShell startup script
-├── test_api.py           # API testing script
 └── README.md             # This file
 ```
 
@@ -216,24 +235,29 @@ ML_Server/
 ## Security Configuration
 
 ### Environment Variables
-Make sure to set the same JWT_SECRET in both servers:
+
+Make sure to set the same `JWT_SECRET` in both servers:
 
 **Express.js Backend (.env):**
-```
+
+```env
 JWT_SECRET=your-super-secret-jwt-key-here-change-in-production
 ```
 
 **ML Server (.env):**
-```
+
+```env
 JWT_SECRET=your-super-secret-jwt-key-here-change-in-production
 ```
 
 ### Role-based Access Control
+
 - **DOCTOR**: Full access to all prediction endpoints
 - **NURSE**: Full access to all prediction endpoints  
 - **ADMIN**: Currently not required for ML predictions (can be added if needed)
 
 ### Token Requirements
-- Valid JWT token in Authorization header
-- Token must contain 'id' and 'role' fields
-- Token must be signed with the correct JWT_SECRET
+
+- Valid JWT token in `Authorization` header
+- Token must contain `'id'` and `'role'` fields
+- Token must be signed with the correct `JWT_SECRET`

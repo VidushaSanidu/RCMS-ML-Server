@@ -1,10 +1,9 @@
-import os
-import joblib
-import numpy as np
-import pandas as pd
-from datetime import datetime
-from typing import Dict, List, Any, Optional
 import logging
+import os
+from datetime import datetime
+from typing import Any, Dict, List
+
+import joblib
 
 logger = logging.getLogger(__name__)
 
@@ -50,9 +49,9 @@ class MLModelManager:
                     
                     # Validate models are proper ML models
                     if not hasattr(loaded_object['xgb'], 'predict_proba'):
-                        raise ValueError(f"XGB model in ensemble does not have predict_proba method")
+                        raise ValueError("XGB model in ensemble does not have predict_proba method")
                     if not hasattr(loaded_object['lgbm'], 'predict_proba'):
-                        raise ValueError(f"LGBM model in ensemble does not have predict_proba method")
+                        raise ValueError("LGBM model in ensemble does not have predict_proba method")
                     
                     # Store the complete ensemble bundle
                     self.models[model_name] = loaded_object

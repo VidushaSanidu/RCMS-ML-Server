@@ -1,10 +1,10 @@
+import logging
 import os
+from functools import wraps
+
 import jwt
-import json
 from django.http import JsonResponse
 from django.utils.deprecation import MiddlewareMixin
-from functools import wraps
-import logging
 
 logger = logging.getLogger(__name__)
 

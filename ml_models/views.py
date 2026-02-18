@@ -1,20 +1,19 @@
+import logging
+
+from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from drf_spectacular.utils import extend_schema
-import logging
 
-from .serializers import (
-    DryWeightPredictionSerializer,
-    DryWeightPredictionResponseSerializer,
-    URRPredictionSerializer,
-    URRPredictionResponseSerializer,
-    HbPredictionSerializer,
-    HbPredictionResponseSerializer,
-    ErrorResponseSerializer
-)
-from .services import dry_weight_predictor, urr_predictor, hb_predictor
 from .middleware.auth import require_auth, require_role
+from .serializers import (DryWeightPredictionResponseSerializer,
+                          DryWeightPredictionSerializer,
+                          ErrorResponseSerializer,
+                          HbPredictionResponseSerializer,
+                          HbPredictionSerializer,
+                          URRPredictionResponseSerializer,
+                          URRPredictionSerializer)
+from .services import dry_weight_predictor, hb_predictor, urr_predictor
 
 logger = logging.getLogger(__name__)
 

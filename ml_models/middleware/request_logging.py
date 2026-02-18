@@ -1,4 +1,5 @@
 import logging
+
 from django.utils.deprecation import MiddlewareMixin
 
 logger = logging.getLogger(__name__)
@@ -37,7 +38,7 @@ class RequestLoggingMiddleware(MiddlewareMixin):
                         if not raw_body.strip():
                             logger.warning("Body is only whitespace")
                         elif raw_body != raw_body.strip():
-                            logger.warning(f"Body has leading/trailing whitespace")
+                            logger.warning("Body has leading/trailing whitespace")
                             logger.info(f"Leading chars: {raw_body[:10]!r}")
                             logger.info(f"Trailing chars: {raw_body[-10:]!r}")
                         

@@ -4,9 +4,9 @@ Test script for the new LightGBM dry weight prediction model
 Verifies that the 19-feature model works correctly with dialysis session data
 """
 
-import requests
 import json
 from datetime import datetime
+
 
 # Test data matching the new 19-feature model requirements
 test_data = {
@@ -36,13 +36,13 @@ def test_dry_weight_features():
     print("=" * 50)
     
     # Import the services module
-    import sys
     import os
+    import sys
     sys.path.append(os.path.join(os.path.dirname(__file__), 'ml_models'))
     
     try:
         from ml_models.services import dry_weight_predictor
-        
+
         # Test feature preparation
         features = dry_weight_predictor._prepare_features(test_data)
         
@@ -120,11 +120,11 @@ def main():
     print(f"✅ Feature Preparation: {'PASSED' if features_ok else 'FAILED'}")
     print("⚠️  API Testing: Manual verification required")
     
-    print(f"\n🎯 Model Requirements Met:")
-    print(f"   • Features: 19 ✓")
-    print(f"   • Data Source: Dialysis sessions ✓")
-    print(f"   • Model Type: LightGBM ✓")
-    print(f"   • Derived Features: 6 calculated features ✓")
+    print("\n🎯 Model Requirements Met:")
+    print("   • Features: 19 ✓")
+    print("   • Data Source: Dialysis sessions ✓")
+    print("   • Model Type: LightGBM ✓")
+    print("   • Derived Features: 6 calculated features ✓")
 
 if __name__ == "__main__":
     main()
