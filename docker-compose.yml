@@ -7,16 +7,15 @@ services:
     ports:
       - "8001:8001"
     environment:
-      DEBUG: "True"
-      DJANGO_SECRET_KEY: "your-django-secret-key-here"
+      DEBUG: "False"
+      SECRET_KEY: "your-django-secret-key-here"
       JWT_SECRET: "your-super-secret-jwt-key-here-change-in-production"
-      JWT_EXPIRE: "30d"
-      DATABASE_PATH: "/app/data/db.sqlite3"
-      ALLOWED_HOSTS: "*"
       LOG_LEVEL: "INFO"
+      CORS_ALLOWED_ORIGINS: "http://localhost:5000,http://127.0.0.1:5000,HTTP://0.0.0.0:5000"
+      ALLOWED_HOSTS: "localhost,127.0.0.1,0.0.0.0"
+      DATABASE_PATH: "/app/data/db.sqlite3"
     volumes:
       - renal_ml_data:/app/data
-      - ./models:/app/models   # persist ML models if needed
     restart: unless-stopped
     command: >
       sh -c "
