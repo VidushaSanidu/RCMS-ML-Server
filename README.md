@@ -172,9 +172,13 @@ curl -X POST http://localhost:8001/api/ml/predict/hb/ \
 
 `ml_models/models/` directory:
 
+NOTE: Please Read also [README.md](ml_models/trained_models/README.md) for details about the models and their features.
+
 - dry_weight_model.pkl
-- urr_model.pkl
 - hb_model.pkl
+- urr_model.pkl
+- urr_lightGbm_model.pkl (Not currently used)
+- xgb_model_for_hb.pkl (Not currently used)
 
 ## Integration with Express.js Backend
 
@@ -186,10 +190,20 @@ The ML server is designed to work alongside the Express.js backend:
 
 ## Architecture
 
-```text
-Frontend (React) → Express.js Backend (port 3000) → ML Server (port 8001)
-                        ↓
-                  MongoDB Database
+```mermaid
+flowchart LR
+    FE["Frontend (React)"]
+    BE["Express.js Backend (Port 3000)"]
+    ML["ML Server (Django, Port 8001)"]
+
+    DB1[("MongoDB Database<br>Primary database used by Express backend")]
+    DB2[("Django Database (Optional)<br>SQLite for development<br>PostgreSQL or MySQL for production<br>May be added in future if needed")]
+
+    FE -->|HTTP Requests| BE
+    BE -->|API Calls| ML
+    BE -->|Read/Write| DB1
+
+    ML -.->|Optional Read/Write| DB2
 ```
 
 ## Project Structure
@@ -198,42 +212,34 @@ Frontend (React) → Express.js Backend (port 3000) → ML Server (port 8001)
 ML_Server/
 ├── ml_server/              # Django project
 │   ├── __init__.py
-│   ├── settings.py         # Django settings with CORS, REST framework
+│   ├── settings.py         # Django settings
 │   ├── urls.py             # Main URL routing
 │   ├── wsgi.py             # WSGI application
 │   └── asgi.py             # ASGI application
-├── ml_models/              # Django app for ML models
+├── ml_models/              # Django app for ML predictions
 │   ├── __init__.py
 │   ├── apps.py             # App configuration
 │   ├── views.py            # API views for predictions
 │   ├── serializers.py      # DRF serializers for validation
 │   ├── services.py         # ML prediction services
 │   ├── urls.py             # App URL patterns
-│   └── models/             # ML model files directory
+│   └── trained_models/     # Directory for trained model files
 │       ├── README.md
-│       ├── dry_weight_model.pkl    # Trained model for dry weight prediction
-│       ├── urr_model.pkl          # Trained model for URR prediction
-│       └── hb_model.pkl           # Trained model for hemoglobin prediction
-├── requirements.txt        # Python dependencies
-├── manage.py              # Django management script
-├── start_server.bat       # Windows batch startup script
-├── start_server.ps1       # PowerShell startup script
-└── README.md             # This file
+│       ├── dry_weight_model.pkl     # Trained model for dry weight prediction
+│       ├── urr_model.pkl            # Trained model for URR prediction
+│       ├── hb_model.pkl             # Trained model for hemoglobin prediction
+│       ├── urr_lightGbm_model.pkl   # (Not currently used) LightGBM model for URR prediction
+│       └── xgb_model_for_hb.pkl     # (Not currently used) XGBoost model for hemoglobin prediction
+├── requirements.txt    # Python dependencies
+├── manage.py           # Django management script
+├── start_server.bat    # Windows batch startup script
+├── start_server.ps1    # PowerShell startup script
+└── README.md           # This file
 ```
 
-## Development Notes
-
-- The server uses dummy models for development if real model files are not available
-- JWT authentication uses the same secret as the Express.js backend for token compatibility
-- Prediction endpoints require DOCTOR or NURSE roles for access
-- Public endpoints (health checks, models info) don't require authentication
-- Comprehensive error handling and logging
-- REST API with proper HTTP status codes
-- Input validation using Django REST Framework serializers
-- CORS configured for integration with Express.js backend
-- Swagger/OpenAPI documentation support (via drf-spectacular)
-
 ## Security Configuration
+
+Please Read the [ENV.md](ENV.md) file for details about environment variables and security configuration.
 
 ### Environment Variables
 

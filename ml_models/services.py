@@ -17,9 +17,9 @@ class MLModelManager:
         self.models = {}
         self.model_versions = {}
         self.model_paths = {
-            "dry_weight": "models/dry_weight_model.pkl",
-            "urr": "models/urr_model.pkl",
-            "hb": "models/hb_model.pkl",
+            "dry_weight": "trained_models/dry_weight_model.pkl",
+            "urr": "trained_models/urr_model.pkl",
+            "hb": "trained_models/hb_model.pkl",
         }
 
     def load_model(self, model_name: str):
