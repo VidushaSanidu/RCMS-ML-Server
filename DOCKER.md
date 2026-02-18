@@ -4,8 +4,8 @@ This guide explains how to run the Django ML Server using Docker in the developm
 
 This setup uses:
 
-* `Dockerfile.dev`
-* `docker-compose.dev.yml`
+* [`Dockerfile.dev`](./Dockerfile.dev)
+* [`docker-compose.dev.yml`](./docker-compose.dev.yml)
 
 The ML server will run on port **8001**.
 
