@@ -212,19 +212,19 @@ flowchart LR
 
 ```text
 ML_Server/
-├── ml_server/              # Django project
+├── ml_server/              # Main Django project
 │   ├── __init__.py
 │   ├── settings.py         # Django settings
-│   ├── urls.py             # Main URL routing
+│   ├── urls.py             # URL configuration
 │   ├── wsgi.py             # WSGI application
 │   └── asgi.py             # ASGI application
-├── ml_models/              # Django app for ML predictions
+├── ml_models/              # Django app for ML models and predictions
 │   ├── __init__.py
 │   ├── apps.py             # App configuration
 │   ├── views.py            # API views for predictions
-│   ├── serializers.py      # DRF serializers for validation
-│   ├── services.py         # ML prediction services
-│   ├── urls.py             # App URL patterns
+│   ├── serializers.py      # Serializers for input validation
+│   ├── services.py         # Services for loading models and making predictions
+│   ├── urls.py             # URL configuration for ML endpoints
 │   └── trained_models/     # Directory for trained model files
 │       ├── README.md       # Details about the models
 │       ├── dry_weight_model.pkl     # Trained model for dry weight prediction
@@ -232,11 +232,17 @@ ML_Server/
 │       ├── hb_model.pkl             # Trained model for hemoglobin prediction
 │       ├── urr_lightGbm_model.pkl   # (Not currently used) LightGBM model for URR prediction
 │       └── xgb_model_for_hb.pkl     # (Not currently used) XGBoost model for hemoglobin prediction
-├── requirements.txt    # Python dependencies
-├── manage.py           # Django management script
-├── start_server.bat    # Windows batch startup script
-├── start_server.ps1    # PowerShell startup script
-└── README.md           # This file
+├── requirements.txt              # Python dependencies
+├── manage.py                     # Django management script
+├── start_server.bat              # Windows batch startup script
+├── start_server.ps1              # PowerShell startup script
+├── Dockerfile.dev                # Dockerfile for development environment
+├── docker-compose.dev.yml        # Docker Compose file for development environment
+├── .env.example                  # Example environment variables file
+├── test_dry_weight_features.py   # Test script for dry weight prediction features
+├── DOCKER.md                     # Instructions for Dockerization
+├── ENV.md                        # Instructions for environment variable configuration
+└── README.md                     # This file
 ```
 
 ## Security Configuration
@@ -263,10 +269,14 @@ JWT_SECRET=your-super-secret-jwt-key-here-change-in-production
 
 - **DOCTOR**: Full access to all prediction endpoints
 - **NURSE**: Full access to all prediction endpoints  
-- **ADMIN**: Currently not required for ML predictions (can be added if needed)
+- **ADMIN**: Currently not required for ML predictions
 
 ### Token Requirements
 
 - Valid JWT token in `Authorization` header
 - Token must contain `'id'` and `'role'` fields
 - Token must be signed with the correct `JWT_SECRET`
+
+## Dockerization
+
+Please Read the [DOCKER.md](DOCKER.md) file for details about Dockerizing the ML server and running it in a containerized environment.
