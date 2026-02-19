@@ -61,6 +61,14 @@ LOG_LEVEL=INFO
 
 > NOTE : The database configurations are defined just for future use. Currently, There is no database needed for the ML server, so these settings are not used. They are included here for completeness and future expansion of the ML server to include database functionality. so, you can avoid these settings for now.
 
+- If you want to just ignore the database configuration, you can set `DB_ENGINE` to `none` to explicitly indicate that no database will be used. This will allow the ML server to run without attempting to connect to a database. (This is not a default setting, so you must uncomment the line below to disable database usage.)
+
+- Currently, the ML server does not require a database connection, so setting `DB_ENGINE` to `none` is a way to indicate that the application should run without a database.
+
+```env
+DB_ENGINE=none  # Uncomment this line to disable database usage. The application will run without a database connection.
+```
+
 ## Databsase Engine Selection
 
 The `DB_ENGINE` variable allows you to select which database backend to use. Supported values are `postgresql`, `mysql`, and `sqlite`. If not set, it defaults to `sqlite`.

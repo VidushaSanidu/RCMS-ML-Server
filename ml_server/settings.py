@@ -112,6 +112,9 @@ elif DB_ENGINE == "mysql":
         "OPTIONS": {"init_command": "SET sql_mode='STRICT_TRANS_TABLES'"},
     }
 
+elif DB_ENGINE == "none":
+    DATABASES = {}
+
 else:  # sqlite default (not for production)
     DATABASES = {
         "default": {

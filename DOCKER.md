@@ -50,8 +50,8 @@ LOG_LEVEL=INFO
 CORS_ALLOWED_ORIGINS=http://localhost:5000,http://127.0.0.1:5000
 
 ALLOWED_HOSTS=localhost,127.0.0.1
-
-DATABASE_PATH=/app/data/db.sqlite3
+    
+DB_ENGINE=none
 ```
 
 Refer to [`ENV.md`](./ENV.md) for full environment variable details.
