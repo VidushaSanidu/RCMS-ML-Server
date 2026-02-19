@@ -20,6 +20,7 @@ env/
 # Docker
 Dockerfile*
 docker-compose*
+.dockerignore
 
 # Editor files
 .vscode/
