@@ -236,8 +236,8 @@ ML_Server/
 ├── manage.py                     # Django management script
 ├── start_server.bat              # Windows batch startup script
 ├── start_server.ps1              # PowerShell startup script
-├── Dockerfile.dev                # Dockerfile for development environment
-├── docker-compose.dev.yml        # Docker Compose file for development environment
+├── Dockerfile                # Dockerfile for development environment
+├── docker-compose.yml        # Docker Compose file for development environment
 ├── .env.example                  # Example environment variables file
 ├── test_dry_weight_features.py   # Test script for dry weight prediction features
 ├── DOCKER.md                     # Instructions for Dockerization

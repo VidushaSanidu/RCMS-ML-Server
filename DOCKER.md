@@ -4,8 +4,8 @@ This guide explains how to run the Django ML Server using Docker in the developm
 
 This setup uses:
 
-* [`Dockerfile.dev`](./Dockerfile.dev)
-* [`docker-compose.dev.yml`](./docker-compose.dev.yml)
+* [`Dockerfile`](./Dockerfile)
+* [`docker-compose.yml`](./docker-compose.yml)
 
 The ML server will run on port **8001**.
 
@@ -31,8 +31,8 @@ docker compose version
 
 ```text
 ML_Server/
-├── Dockerfile.dev
-├── docker-compose.dev.yml
+├── Dockerfile
+├── docker-compose.yml
 ├── .env
 ```
 
@@ -63,12 +63,12 @@ Refer to [`ENV.md`](./ENV.md) for full environment variable details.
 Run from the project root:
 
 ```bash
-docker compose -f docker-compose.dev.yml up --build
+docker compose -f docker-compose.yml up --build
 ```
 
 This will:
 
-* Build the Docker image using [`Dockerfile.dev`](./Dockerfile.dev)
+* Build the Docker image using [`Dockerfile`](./Dockerfile)
 * Start the ML server container
 * Expose the server at:
 
@@ -81,7 +81,7 @@ http://localhost:8001
 ## Run in Background Mode
 
 ```bash
-docker compose -f docker-compose.dev.yml up -d --build
+docker compose -f docker-compose.yml up -d --build
 ```
 
 ---
@@ -89,7 +89,7 @@ docker compose -f docker-compose.dev.yml up -d --build
 ## Stop the Server
 
 ```bash
-docker compose -f docker-compose.dev.yml down
+docker compose -f docker-compose.yml down
 ```
 
 ---
@@ -97,7 +97,7 @@ docker compose -f docker-compose.dev.yml down
 ## Rebuild After Code Changes
 
 ```bash
-docker compose -f docker-compose.dev.yml up --build
+docker compose -f docker-compose.yml up --build
 ```
 
 ---
