@@ -28,7 +28,7 @@ DJANGO_SECRET_KEY=your-django-secret-key-here
 This setting defines which origins are allowed to make cross-origin requests to the ML server. You can specify multiple origins separated by commas. There is no default value, so you must set this variable to enable CORS for your Express.js and React frontend applications.
 
 ```env
-CORS_ALLOWED_ORIGINS=http://localhost:5000,http://127.0.0.1:5000,http://0.0.0.0:5000
+CORS_ALLOWED_ORIGINS=http://localhost:5000,http://127.0.0.1:5000,http://0.0.0.0:5000,http://backend:5000
 ```
 
 ## Allowed Hosts
@@ -36,7 +36,7 @@ CORS_ALLOWED_ORIGINS=http://localhost:5000,http://127.0.0.1:5000,http://0.0.0.0:
 This setting defines which host/domain names the ML server can serve. You can specify multiple hosts separated by commas. There is no default value, so you must set this variable to allow the server to respond to requests from your Express.js and React frontend applications.
 
 ```env
-ALLOWED_HOSTS=localhost,127.0.0.1,0.0.0.0
+ALLOWED_HOSTS=localhost,127.0.0.1,0.0.0.0,ml-server
 ```
 
 ## Static Files Configuration
