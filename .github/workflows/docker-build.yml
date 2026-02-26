@@ -48,10 +48,10 @@ jobs:
           echo "✅ Image base: $IMAGE_BASE"
           echo "✅ Version: $VERSION"
 
-      - name: Build & push image for Bun (Production)
+      - name: Build & push image
         run: |
           docker build \
-            -f Dockerfile.bun \
+            -f Dockerfile \
             -t $IMAGE_BASE:$VERSION \
             -t $IMAGE_BASE:latest \
             .
