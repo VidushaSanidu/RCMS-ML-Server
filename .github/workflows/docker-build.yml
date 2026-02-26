@@ -1,0 +1,60 @@
+name: Build and Publish Dev & Prod Docker Images
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag (e.g., 1.0.0). Leave empty to use commit SHA'
+        required: false
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Prepare image variables
+        run: |
+          # Version handling
+          VERSION="${{ github.event.inputs.version }}"
+          if [ -z "$VERSION" ]; then
+            VERSION="${GITHUB_SHA::7}"
+          fi
+
+          # Validate semantic version if provided
+          if [[ -n "${{ github.event.inputs.version }}" && ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "❌ Invalid version format. Use X.Y.Z (e.g., 1.0.0)"
+            exit 1
+          fi
+
+          # Docker requires lowercase names
+          OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          REPO=$(echo "${{ github.event.repository.name }}" | tr '[:upper:]' '[:lower:]')
+
+          IMAGE_BASE="ghcr.io/$OWNER/$REPO"
+
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "IMAGE_BASE=$IMAGE_BASE" >> $GITHUB_ENV
+
+          echo "✅ Image base: $IMAGE_BASE"
+          echo "✅ Version: $VERSION"
+
+      - name: Build & push image for Bun (Production)
+        run: |
+          docker build \
+            -f Dockerfile.bun \
+            -t $IMAGE_BASE:$VERSION \
+            -t $IMAGE_BASE:latest \
+            .
+
+          docker push $IMAGE_BASE:$VERSION
+          docker push $IMAGE_BASE:latest
