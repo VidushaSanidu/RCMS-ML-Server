@@ -1,6 +1,6 @@
 # ML Server Environment Variables
 
-> NOTE: The .env.example file provides example values for all environment variables. You must create a .env file with appropriate values before running the ML server. Please read the explanations below for each variable to understand how to configure them properly.
+> NOTE: The .env.example file provides example values for all environment variables. You must create a .env file with appropriate values before running the ML server. Please read the explanations below for each variable to understand how to configure them properly. 
 
 ## JWT Configuration (must match the Express.js backend)
 
