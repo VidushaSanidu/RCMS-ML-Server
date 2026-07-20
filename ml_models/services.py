@@ -331,7 +331,7 @@ class URRPredictor:
             X = pd.DataFrame([features], columns=feature_names)
 
             # Make classification prediction
-            prediction = model.predict([features])[0]
+            prediction = model.predict(X)[0]
 
             # Get prediction probabilities
             if hasattr(model, "predict_proba"):

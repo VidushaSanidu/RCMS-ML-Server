@@ -1,6 +1,6 @@
 __pycache__
 *.sqlite3
-venv
+.venv
 .ruff_cache
 .env
 .env.*
