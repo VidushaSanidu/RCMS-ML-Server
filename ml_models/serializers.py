@@ -93,32 +93,32 @@ class URRPredictionSerializer(serializers.Serializer):
 
     # URR parameters
     urr = serializers.FloatField(
-        min_value=30, max_value=95, help_text="Current URR (%)"
+        min_value=0.0, max_value=100.0, help_text="Current URR (%)"
     )
     urr_diff = serializers.FloatField(
-        min_value=-30,
-        max_value=30,
+        min_value=-50.0,
+        max_value=50.0,
         help_text="URR difference from previous session (%)",
     )
 
     # Dialysis efficiency parameters (for calculating differences)
     serum_k_pre_hd = serializers.FloatField(
-        min_value=2.0, max_value=8.0, help_text="Serum K Pre-HD (mmol/L)"
+        min_value=1.5, max_value=10.0, help_text="Serum K Pre-HD (mmol/L)"
     )
     serum_k_post_hd = serializers.FloatField(
-        min_value=2.0, max_value=7.0, help_text="Serum K Post-HD (mmol/L)"
+        min_value=1.5, max_value=10.0, help_text="Serum K Post-HD (mmol/L)"
     )
     bu_pre_hd = serializers.FloatField(
-        min_value=10, max_value=100, help_text="BU - pre HD (mmol/L)"
+        min_value=1.0, max_value=150.0, help_text="BU - pre HD (mmol/L)"
     )
     bu_post_hd = serializers.FloatField(
-        min_value=5, max_value=50, help_text="BU - post HD (mmol/L)"
+        min_value=0.5, max_value=100.0, help_text="BU - post HD (mmol/L)"
     )
     scr_pre_hd = serializers.FloatField(
-        min_value=10, max_value=2000, help_text="SCR- pre HD (µmol/L)"
+        min_value=10.0, max_value=2500.0, help_text="SCR- pre HD (µmol/L)"
     )
     scr_post_hd = serializers.FloatField(
-        min_value=10, max_value=1500, help_text="SCR- post HD (µmol/L)"
+        min_value=5.0, max_value=2000.0, help_text="SCR- post HD (µmol/L)"
     )
 
     # Optional patient ID
@@ -160,10 +160,10 @@ class HbPredictionSerializer(serializers.Serializer):
         min_value=10, max_value=60, help_text="Albumin (g/L)"
     )
     bu_post_hd = serializers.FloatField(
-        min_value=5, max_value=50, help_text="BU - post HD (mmol/L)"
+        min_value=0.5, max_value=100.0, help_text="BU - post HD (mmol/L)"
     )
     bu_pre_hd = serializers.FloatField(
-        min_value=10, max_value=100, help_text="BU - pre HD (mmol/L)"
+        min_value=1.0, max_value=150.0, help_text="BU - pre HD (mmol/L)"
     )
     s_ca = serializers.FloatField(
         min_value=1.5, max_value=10, help_text="S Ca (mmol/L)"

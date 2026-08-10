@@ -1,9 +1,10 @@
 services:
   ml-server:
     build: .
-    container_name: renal-ml-server
+    container_name: ml-server
+
     ports:
-      - "8001:8001"
+      - "8000:8000"
 
     env_file:
       - .env
@@ -11,7 +12,12 @@ services:
     restart: unless-stopped
 
     command: >
-      sh -c "
-      python manage.py migrate &&
-      python manage.py runserver 0.0.0.0:8001
-      "
+      sh -c " if [ \"$$DB_ENGINE\" != \"none\" ] && [ -n \"$$DB_ENGINE\" ]; then python manage.py migrate; fi && python manage.py runserver 0.0.0.0:8000 "
+
+    networks:
+      - renal-care-net
+
+networks:
+  renal-care-net:
+    external: true
+    name: renal-care-management-system
