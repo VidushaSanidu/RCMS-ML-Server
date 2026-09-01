@@ -1,0 +1,23 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout latest code
+        uses: actions/checkout@v4
+
+      - name: Setup production environment
+        run: |
+          cp /home/deploy/env/rcml.env .env
+
+      - name: Deploy application with Docker Compose
+        run: |
+          docker compose down
+          docker compose up -d --build
